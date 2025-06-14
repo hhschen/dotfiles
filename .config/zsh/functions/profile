@@ -1,0 +1,33 @@
+profile() {
+  local count=1
+
+  usage() {
+    echo "Usage: profile [-c count] [-h]"
+    echo
+    echo "Options:"
+    echo "  -c <count>   Number of times to run the shell startup profiling (default: 10)"
+    echo "  -h           Show this help message"
+  }
+
+  while getopts "c:h" opt; do
+    case "$opt" in
+      c) count=$OPTARG ;;
+      h)
+        usage
+        return 0
+        ;;
+      *)
+        usage >&2
+        return 1
+        ;;
+    esac
+  done
+
+  if [[ -e "$(command -v hyperfine)" ]]; then
+    hyperfine -i --warmup "$count" --runs "$count" -- '$SHELL -i -c exit'
+  else
+    for ((i = 1; i <= count; i++)); do
+      time $SHELL -i -c exit
+    done
+  fi
+}

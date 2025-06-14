@@ -1,0 +1,58 @@
+# Filetype
+bower_components/
+.git/
+node_modules/
+tmp/
+*.aux
+.bundle
+*.dll
+*.dvi
+*.dSYM
+.env
+*.elc
+*.log
+.netrwhist
+*.o
+*.obj
+.python-version
+.pyc
+*.sw[po]
+.svn
+tags
+TAGS
+.zshrc.local
+
+# macOS
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+*.stackdump
+[Dd]esktop.ini
+
+# Vim / Neovim
+.vim/plugged/
+.vim/autoload/plug.vim
+.vim/bundle/
+.vimrc_sample
+.luarc.json
+lazy-lock.json
+
+# zsh
+.zcompdump
+.zsh_history
+.zsh_sessions
+
+# Other
+.vscode/

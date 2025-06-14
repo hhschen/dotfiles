@@ -1,0 +1,39 @@
+{
+	"telemetry": {
+		"metrics": false,
+		"diagnostics": false
+	},
+	"ui_font_size": 16,
+	"ui_font_family": "FiraCode Nerd Font",
+	"buffer_font_size": 17,
+	"buffer_font_family": "FiraCode Nerd Font Mono",
+	"cursor_blink": false,
+	"relative_line_numbers": true,
+	"project_panel": {
+		"dock": "left",
+		"git_status": true
+	},
+	"tabs": {
+		"git_status": true,
+		"close_position": "right"
+	},
+	"scrollbar": {
+		"show": "never"
+	},
+	"theme": {
+		"mode": "system",
+		"light": "Ayu Light",
+		"dark": "Ayu Dark"
+	},
+	"vim_mode": true,
+	"tab_size": 4,
+	"hard_tabs": true,
+	"formatter": "language_server",
+	"remove_trailing_whitespace_on_save": true,
+	"show_whitespaces": "selection",
+	"inlay_hints": {
+		"enabled": true,
+		"show_other_hints": false
+	},
+	"auto_update": true
+}

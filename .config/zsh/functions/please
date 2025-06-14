@@ -1,0 +1,7 @@
+function please() {
+  if [[ -n $SUDO_COMMAND ]]; then
+    echo "You're already using sudo."
+    return 1
+  fi
+  eval "sudo $(fc -ln -1)"
+}
