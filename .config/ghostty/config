@@ -32,4 +32,6 @@ linux-cgroup-hard-fail = true
 # Other
 auto-update = check
 auto-update-channel = stable
+confirm-close-surface = false
 shell-integration-features = no-cursor
+quit-after-last-window-closed = true
