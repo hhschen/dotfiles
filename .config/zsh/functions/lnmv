@@ -1,0 +1,34 @@
+function lnmv() {
+  if [ $# -ne 2 ]; then
+    echo "Usage: lnmv <source> <destination>"
+    return 1
+  fi
+
+  local SOURCE="$1"
+  local DEST="$2"
+
+  if [ ! -e "$SOURCE" ]; then
+    echo "Error: Source directory $SOURCE not found!"
+    return 1
+  fi
+
+  if [ -e "$DEST" ]; then
+    echo "Error: Destination $DEST already exists!"
+    return 1
+  fi
+
+  mv "$SOURCE" "$DEST" || {
+    echo "Failed to move $SOURCE to $DEST"
+    return 1
+  }
+
+  # Find and update symlinks
+  find ~ -type l | while read -r link; do
+    target=$(readlink "$link")
+    if [[ "$target" == "$SOURCE"* ]]; then
+      new_target="${DEST}${target#$SOURCE}"
+      ln -sf "$new_target" "$link"
+      echo "Updated symlink: $link → $new_target"
+    fi
+  done
+}

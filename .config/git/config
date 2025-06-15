@@ -1,0 +1,33 @@
+[user]
+	name = Hung Hsun Chen
+	email = 204702481+hhschen@users.noreply.github.com
+	signingkey = 0E2A1638B3793F04
+[alias]
+	aa = add --all
+	ap = add --patch
+	ba = branch -a
+	bm = branch --merged
+	bn = branch --no-merged
+	ca = commit -a
+	cm = commit -m
+	co = checkout
+	df = diff
+	ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+	pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+	st = status
+[color]
+	ui = auto
+[commit]
+	gpgsign = true
+[core]
+	excludesfile = ~/.config/git/ignore
+	editor = nvim
+	ignorecase = false
+[diff]
+	tool = nvimdiff
+[init]
+	defaultBranch = main
+[push]
+	default = simple
+[tag]
+	gpgSign = true
