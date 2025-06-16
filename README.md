@@ -27,7 +27,7 @@ Here's a sneak peek into my curated setup:
 
 1. **Clone the repo**
    ```sh
-   git clone --recursive https://codeberg.org/hhschen/dotfiles.git <TARGET>
+   git clone --recursive https://github.com/hhschen/dotfiles.git <TARGET>
    ```
 
 2. **Install dependencies**
