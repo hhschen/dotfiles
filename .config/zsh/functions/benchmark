@@ -1,8 +1,8 @@
-profile() {
+function benchmark() {
   local count=1
 
   usage() {
-    echo "Usage: profile [-c count] [-h]"
+    echo "Usage: benchmark [-c count] [-h]"
     echo
     echo "Options:"
     echo "  -c <count>   Number of times to run the shell startup profiling (default: 10)"
