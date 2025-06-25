@@ -1,0 +1,57 @@
+function archnews() {
+  emulate -L zsh
+  setopt extended_glob
+
+  local limit=5
+  local show_link=0
+
+  for arg in "$@"; do
+    case "$arg" in
+      <0-9>##) limit="$arg" ;;
+      --link) show_link=1 ;;
+      *) echo "Usage: archnews [count] [--link]"; return 1 ;;
+    esac
+  done
+
+  echo $'\e[0;34m:: \e[1;37mArch Linux News:\e[m'
+
+  LIMIT="$limit" SHOWLINK="$show_link" perl -e '
+    use Date::Parse;
+    use strict;
+    use warnings;
+
+    my $limit = $ENV{LIMIT} || 5;
+    my $show_link = $ENV{SHOWLINK};
+
+    my $xml = qx{curl -s "https://archlinux.org/feeds/news/"};
+    my $n = 0;
+
+    while ($xml =~ m{<item>(.*?)</item>}sg) {
+      my $item = $1;
+      my ($title) = $item =~ m{<title>(.*?)</title>};
+      my ($date)  = $item =~ m{<pubDate>(.*?)</pubDate>};
+      my ($link)  = $item =~ m{<link>(.*?)</link>};
+
+      $title =~ s/&amp;/&/g;
+      $title =~ s/&lt;/</g;
+      $title =~ s/&gt;/>/g;
+
+      my $days = int((time - str2time($date)) / 86400 + 0.5);  # round to nearest day
+
+      my $color;
+      if ($days < 7.5) {
+        $color = "\e[0;30;41m X \e[1;31;40m";
+      } elsif ($days < 14.5) {
+        $color = "\e[0;30;43m X \e[1;33;40m";
+      } else {
+        $color = "   ";
+      }
+
+      printf "%s%3d days ago\e[m | %s", $color, $days, $title;
+      printf " (%s)", $link if $show_link;
+      print "\n";
+
+      last if ++$n == $limit;
+    }
+  '
+}
