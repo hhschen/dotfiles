@@ -5,7 +5,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export DOTFILES="$HOME/.dotfiles"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export TERMINFO="$XDG_DATA_HOME/terminfo"
