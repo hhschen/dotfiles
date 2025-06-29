@@ -32,7 +32,7 @@ FILE_MAP["yazi"]=".config/yazi::$HOME/.config/yazi"
 FILE_MAP["ghostty"]=".config/ghostty::$HOME/.config/ghostty"
 FILE_MAP["zed"]=".config/zed::$HOME/.config/zed"
 FILE_MAP["vim"]=".config/vim::$HOME/.config/vim"
-FILE_MAP["vscode"]="vscode::$HOME/.config/Code/User"
+FILE_MAP["vscode"]=".config/Code::$HOME/.config/Code/User"
 
 # Build options for whiptail
 OPTIONS=()
