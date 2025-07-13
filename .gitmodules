@@ -1,0 +1,21 @@
+[submodule ".config/vim/pack/ui/start/vim-solarized8"]
+	path = .config/vim/pack/ui/start/vim-solarized8
+	url = git@github.com:lifepillar/vim-solarized8.git
+[submodule ".config/vim/pack/ui/start/vim-vinegar"]
+	path = .config/vim/pack/ui/start/vim-vinegar
+	url = git@github.com:tpope/vim-vinegar.git
+[submodule ".config/vim/pack/editor/start/fzf"]
+	path = .config/vim/pack/editor/start/fzf
+	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".config/vim/pack/coding/start/vim-surround"]
+	path = .config/vim/pack/coding/start/vim-surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule ".config/vim/pack/coding/opt/vim-repeat"]
+	path = .config/vim/pack/coding/opt/vim-repeat
+	url = git@github.com:tpope/vim-repeat.git
+[submodule ".config/vim/pack/coding/opt/vim-commentary"]
+	path = .config/vim/pack/coding/opt/vim-commentary
+	url = git@github.com:tpope/vim-commentary.git
+[submodule ".config/vim/pack/coding/opt/vim-sneak"]
+	path = .config/vim/pack/coding/opt/vim-sneak
+	url = git@github.com:justinmk/vim-sneak.git

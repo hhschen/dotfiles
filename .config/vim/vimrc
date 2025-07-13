@@ -3,7 +3,6 @@ set nocompatible
 
 "=== Source ==="
 source ~/.vim/keymaps.vim           " For keymapping
-source ~/.vim/vim-plug.vim          " List of plugins
 
 "=== Appearance ==="
 set noshowmode                    " Replace by vim-airline
