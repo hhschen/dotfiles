@@ -11,9 +11,9 @@ vim.lsp.config('*', {
 })
 
 vim.lsp.enable({
-  'clangd',
+  -- 'clangd',
   'lua_ls',
-  'rust_analyzer',
+  -- 'rust_analyzer',
 })
 
 
