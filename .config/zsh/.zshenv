@@ -16,6 +16,9 @@ export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=1000
 export SAVEHIST=1000
 
+## local
+export LANG=en_US.UTF-8
+
 ####### External Tool #######
 
 ## editor
