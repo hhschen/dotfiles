@@ -1,6 +1,8 @@
 # Window
 window-inherit-working-directory = true
 window-save-state = always
+window-height = 30
+window-width = 100
 window-padding-balance = true
 window-colorspace = display-p3
 
