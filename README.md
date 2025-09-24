@@ -16,6 +16,7 @@ Here's a sneak peek into my curated setup:
 - **Git** – `.gitconfig`, `.gitignore` for clean commits and global sanity
 - **Zsh** –  with aliases, plugins, and productivity hacks
 - **Ghostty** – Snappy and styled terminal emulator with a custom config
+- **Alacritty** – Secondary terminal emulator with some basic config
 - **Neovim** – Lua-configured `init.lua`, plugin ecosystem tailored for speed
 - **Vim** – Legacy setup, still usable and customized
 - **Tmux** – Tiling terminal multiplexing wizardry 🧙‍♂️
