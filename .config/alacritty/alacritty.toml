@@ -1,0 +1,19 @@
+[env]
+TERM = "xterm-256color"
+
+[general]
+import = [ "theme/solarized_osaka.toml"]
+live_config_reload = true
+
+[window]
+dimensions = { columns = 110, lines = 35 }
+dynamic_padding = true
+padding = { x = 5, y = 2 }
+opacity = 0.85
+blur = true
+
+[font]
+normal = { family = "FiraCode Nerd Font", style = "Regular" }
+bold = { family = "FiraCode Nerd Font", style = "Bold" }
+italic = { family = "FiraCode Nerd Font", style = "Regular" }
+size = 12.0
