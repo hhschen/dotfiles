@@ -10,7 +10,7 @@ return {
       ensure_installed = {
         -- "clangd",
         "lua-language-server",
-        "rust-analyzer",
+        -- "rust-analyzer",
       },
     },
     config = function(_, opts)
