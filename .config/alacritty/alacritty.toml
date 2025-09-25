@@ -2,7 +2,7 @@
 TERM = "xterm-256color"
 
 [general]
-import = [ "theme/solarized_osaka.toml"]
+import = [ "theme/solarized_osaka.toml", "keybindings.toml" ]
 live_config_reload = true
 
 [window]

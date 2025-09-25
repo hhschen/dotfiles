@@ -1,0 +1,5 @@
+[keyboard]
+bindings = [
+  { key = "Enter", mods = "Control", action = "ToggleFullscreen" },
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+]
