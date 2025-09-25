@@ -7,7 +7,19 @@ return {
     opts = {
       animate = { enabled = false },
       bigfile = { enabled = true },
-      indent = { enabled = true },
+      indent = {
+        indent = { enabled = false },
+        chunk = {
+          enabled = true,
+          char = {
+            horizontal = '─',
+            vertical = '│',
+            corner_top = '╭',
+            corner_bottom = '╰',
+            arrow = '─',
+          },
+        },
+      },
       lazygit = { enabled = true },
       scope = { enabled = true },
       notifier = {      -- This will replace notify.nvim
