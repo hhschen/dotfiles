@@ -1,11 +1,5 @@
--- Encoding
-vim.scriptencoding = "utf-8"
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
-
 -- Appearance
 vim.opt.background = "dark"
-vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.cmdheight = 0
 vim.opt.cursorline = true
 vim.opt.inccommand = "split"
@@ -34,7 +28,6 @@ vim.opt.titleold = '%{fnamemodify(getcwd(), ":t")}'
 vim.opt.titlelen = 70
 
 -- Indent
-vim.opt.autoindent = true
 vim.opt.breakindent = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -43,7 +36,6 @@ vim.opt.smarttab = true
 vim.opt.tabstop = 2
 
 --Searching
-vim.opt.hlsearch = true
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
 vim.opt.smartcase = true  -- Don't ignore case with capitals
 vim.opt.showmatch = true
