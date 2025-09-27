@@ -50,5 +50,12 @@ export FZF_ALT_C_OPTS="--preview 'eza --icons=always --tree --color=always {} | 
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+## terminal
+if command -v ghostty &>/dev/null; then
+  export TERMINAL=ghostty
+else
+  export TERMINAL=alacritty
+fi
+
 ## bat
 export BAT_THEME='Solarized (dark)'
