@@ -2,7 +2,7 @@
 [user]
 	name = Hung Hsun Chen
 	email = 204702481+hhschen@users.noreply.github.com
-	signingkey = 0E2A1638B3793F04
+	signingkey = ~/.ssh/id_ed25519.pub
 [alias]
 	lg = log --oneline --graph --decorate --all
 	pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
@@ -24,6 +24,8 @@
 [difftool "nvimdiff"]
 	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 	path =
+[gpg]
+	format = ssh
 [mergetool "nvimdiff"]
 	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -31,5 +33,3 @@
 	defaultBranch = main
 [push]
 	default = simple
-[tag]
-	gpgSign = true
