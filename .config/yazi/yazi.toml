@@ -1,6 +1,6 @@
 [mgr]
 show_hidden    = true
-title_format   = "{cwd}"
+title_format   = ""
 
 [opener]
 edit = [
