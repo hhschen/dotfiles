@@ -1,0 +1,252 @@
+// -------------------------------------------------------------------------
+// INPUT
+// -------------------------------------------------------------------------
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            // Swap Caps Lock and Control for better ergonomics
+            options "caps:ctrl_modifier,ctrl:swapcaps"
+        }
+        repeat-delay 300
+        repeat-rate 25
+    }
+
+    mouse {
+        natural-scroll
+    }
+
+    touchpad {
+        accel-speed 0.2
+        accel-profile "adaptive"
+        dwt // disable while typing
+        disabled-on-external-mouse
+        tap
+        natural-scroll
+    }
+
+    trackpoint {
+        off
+    }
+
+    // Navigation behavior
+    workspace-auto-back-and-forth
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+// -------------------------------------------------------------------------
+// OUTPUT (MONITOR SETTINGS)
+// -------------------------------------------------------------------------
+// Configured for Thinkpad X1 Carbon Gen 6
+output "eDP-1" {
+    mode "2560x1440@60"
+    scale 1.5
+    transform "normal"
+    position x=0 y=0
+}
+
+// -------------------------------------------------------------------------
+// VISUALS & LAYOUT
+// -------------------------------------------------------------------------
+layout {
+    gaps 8
+    center-focused-column "never"
+    background-color "#001419"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 1.5
+        active-color "#268bd3"
+        inactive-color "#002c38"
+    }
+
+    border {
+        off
+    }
+
+    shadow {
+        on
+        draw-behind-window false
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+
+    struts { }
+}
+
+animations {
+    // slowdown 3.0
+}
+
+cursor {
+    xcursor-theme "Adwaita"
+    hide-when-typing
+    hide-after-inactive-ms 10000
+}
+
+// -------------------------------------------------------------------------
+// WINDOW RULES
+// -------------------------------------------------------------------------
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+    draw-border-with-background false
+}
+
+// Network manager (Impala)
+window-rule {
+    match title="Network"
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 700; }
+}
+
+// Picture-in-Picture settings (Only for chromium)
+window-rule {
+    match title="^子母畫面$"
+
+    open-floating true
+    default-column-width { fixed 480; }
+    default-window-height { fixed 270; }
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+
+// -------------------------------------------------------------------------
+// KEYBINDINGS
+// -------------------------------------------------------------------------
+binds {
+    // --- Applications ---
+    Mod+B       hotkey-overlay-title="Open a Web Browser"   { spawn "chromium"; }
+    Mod+E       hotkey-overlay-title="Open Nautilus"        { spawn "nautilus"; }
+    Mod+Shift+E hotkey-overlay-title="Open Yazi"            { spawn-sh "foot -e yazi"; }
+    Mod+T       hotkey-overlay-title="Open a Terminal"      { spawn "foot"; }
+    Mod+Space   hotkey-overlay-title="Application Launcher" { spawn "fuzzel"; }
+    Mod+Alt+L   hotkey-overlay-title="Lock the screen"      { spawn "swaylock"; }
+    Mod+Alt+V   hotkey-overlay-title="Clipboard"            { spawn-sh "~/.local/bin/clip.sh"; }
+
+    // --- Media & Hardware ---
+    XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
+    XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioPlay         allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop         allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev         allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+
+    // --- Navigation (Focus) ---
+    Mod+Tab   repeat=false { toggle-overview; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+    Mod+Home  { focus-column-first; }
+    Mod+End   { focus-column-last; }
+
+    // --- Window/Column Movement ---
+    Mod+Q     repeat=false { close-window; }
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+    Mod+Ctrl+Home  { move-column-to-first; }
+    Mod+Ctrl+End   { move-column-to-last; }
+
+    // --- Monitor Controls ---
+    Mod+Shift+H       { focus-monitor-left; }
+    Mod+Shift+J       { focus-monitor-down; }
+    Mod+Shift+K       { focus-monitor-up; }
+    Mod+Shift+L       { focus-monitor-right; }
+    Mod+Shift+Left    { focus-monitor-left; }
+    Mod+Shift+Down    { focus-monitor-down; }
+    Mod+Shift+Up      { focus-monitor-up; }
+    Mod+Shift+Right   { focus-monitor-right; }
+    Mod+Shift+Ctrl+H  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J  { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K  { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L  { move-column-to-monitor-right; }
+
+    // --- Workspace Controls ---
+    Mod+D               { focus-workspace-down; }
+    Mod+U               { focus-workspace-up; }
+    Mod+Page_Down       { focus-workspace-down; }
+    Mod+Page_Up         { focus-workspace-up; }
+    Mod+Ctrl+D          { move-column-to-workspace-down; }
+    Mod+Ctrl+U          { move-column-to-workspace-up; }
+    Mod+Ctrl+Page_Down  { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up    { move-column-to-workspace-up; }
+    Mod+Shift+D         { move-workspace-down; }
+    Mod+Shift+U         { move-workspace-up; }
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+
+    // Workspace Switch
+    Mod+1       { focus-workspace 1; }
+    Mod+2       { focus-workspace 2; }
+    Mod+3       { focus-workspace 3; }
+    Mod+4       { focus-workspace 4; }
+    Mod+5       { focus-workspace 5; }
+    Mod+6       { focus-workspace 6; }
+    Mod+7       { focus-workspace 7; }
+    Mod+8       { focus-workspace 8; }
+    Mod+9       { focus-workspace 9; }
+    Mod+Ctrl+1  { move-column-to-workspace 1; }
+    Mod+Ctrl+2  { move-column-to-workspace 2; }
+    Mod+Ctrl+3  { move-column-to-workspace 3; }
+    Mod+Ctrl+4  { move-column-to-workspace 4; }
+    Mod+Ctrl+5  { move-column-to-workspace 5; }
+    Mod+Ctrl+6  { move-column-to-workspace 6; }
+    Mod+Ctrl+7  { move-column-to-workspace 7; }
+    Mod+Ctrl+8  { move-column-to-workspace 8; }
+    Mod+Ctrl+9  { move-column-to-workspace 9; }
+
+    // --- Layout, Sizing & Floating ---
+    Mod+BracketLeft   { consume-or-expel-window-left; }
+    Mod+BracketRight  { consume-or-expel-window-right; }
+    Mod+Comma         { consume-window-into-column; }
+    Mod+Period        { expel-window-from-column; }
+    Mod+R             { switch-preset-column-width; }
+    Mod+Shift+R       { switch-preset-window-height; }
+    Mod+Ctrl+R        { reset-window-height; }
+    Mod+M             { maximize-column; }
+    Mod+Shift+M       { fullscreen-window; }
+    Mod+C             { center-column; }
+    Mod+Ctrl+C        { center-visible-columns; }
+    Mod+Ctrl+F        { expand-column-to-available-width; }
+    Mod+Minus         { set-column-width "-10%"; }
+    Mod+Equal         { set-column-width "+10%"; }
+    Mod+Shift+Minus   { set-window-height "-10%"; }
+    Mod+Shift+Equal   { set-window-height "+10%"; }
+    Mod+F             { toggle-window-floating; }
+    Mod+Shift+F       { switch-focus-between-floating-and-tiling; }
+
+    // --- System ---
+    Print      { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print  { screenshot-window; }
+
+    Ctrl+Alt+Delete { quit; }
+    Mod+Shift+P     { power-off-monitors; }
+
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+}
+
+// -------------------------------------------------------------------------
+// MISCELLANEOUS
+// -------------------------------------------------------------------------
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"

@@ -1,0 +1,83 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 28,
+    "margin-top": 0,
+    "margin-left": 10,
+    "margin-right": 10,
+
+    "modules-left": [ "niri/workspaces", "niri/window" ],
+    "modules-center": [ "clock" ],
+    "modules-right": [ "mpris", "battery", "backlight", "pulseaudio", "network", "custom/power" ],
+
+    "niri/window": {
+        "format": "{}",
+        "separate-outputs": true,
+        "max-length": 25,
+        "swap-icon-label": false,
+        "rewrite": {
+            "(.*) - Chromium": "󰖟 $1",
+        }
+    },
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰯡 ",
+        "tooltip-format": " Station: {ifname}\n󰩟 IP: {ipaddr}/{cidr}\n󰓅 Signal: {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname} 󰈀",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "foot --title 'Network' -e impala"
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip": false,
+    },
+
+    "mpris": {
+        "format": "{player_icon}",
+        "format-paused": "󰏤",
+        "player-icons": {
+            "default": "󰎆",
+        },
+        "status-icons": {
+            "paused": "󰏤"
+        },
+    },
+
+    "battery": {
+        "states": {
+            "warning": 20,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "on-click": "~/.local/bin/power-profile.sh",
+    },
+
+    "clock": {
+        "format": "󱑂 {:%H:%M}",
+        "tooltip-format": "<tt>{:%Y-%m-%d %H:%M}</tt>",
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁 muted",
+        "format-icons": {
+            "default": ["", ""]
+        },
+    },
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "~/.local/bin/powermenu.sh",
+        "tooltip": false,
+    },
+}

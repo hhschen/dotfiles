@@ -1,0 +1,176 @@
+/* --- Solarized Osaka --- */
+@define-color bg #001419;
+@define-color bg_highlight #002c38;
+@define-color yellow #b28500;
+@define-color cyan #29a298;
+@define-color fg #839395;
+@define-color base02 #063540;
+@define-color green #849900;
+@define-color red #db302d;
+@define-color blue #268bd3;
+@define-color orange #cb4b16;
+
+* {
+    font-family: "FiraCode Nerd Font Propo", "WenQuanYi Micro Hei Mono", sans-serif;
+    font-size: 13px;
+    border: none;
+    box-shadow: none;
+}
+
+window#waybar {
+    background-color: transparent;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: transparent;
+}
+
+#workspaces {
+    background-color: @bg;
+    border: 1px solid @base02;
+    border-top: none;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 6px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+#workspaces button {
+    color: @fg;
+    padding: 0px 2px;
+    margin: 1px 2px;
+    border-radius: 5px;
+}
+
+#workspaces button.focused {
+    color: @yellow;
+    background-color: @bg_highlight;
+}
+
+#window {
+    background-color: transparent;
+    border: none;
+    margin-right: 0px;
+    padding: 0px;
+}
+
+window#waybar #window {
+}
+
+#window > label {
+    background-color: @bg;
+    border: 1px solid @base02;
+    border-top: none;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 15px;
+    margin-right: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+#clock {
+    background-color: @bg;
+    border: 1px solid @base02;
+    border-top: none;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 15px;
+    color: @cyan;
+    font-weight: bold;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+#mpris {
+    background-color: transparent;
+    border: none;
+    margin-right: 0px;
+}
+
+#mpris.playing,
+#mpris.paused {
+    background-color: @bg;
+    border: 1px solid @base02;
+    border-top: none;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 12px;
+    margin-right: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+    min-width: 15px;
+}
+
+#mpris.playing {
+    border-color: @blue;
+    color: @blue;
+}
+
+#mpris.paused {
+    border-color: @orange;
+    color: @orange;
+}
+
+#mpris label {
+    padding: 0;
+    margin: 0;
+}
+
+#battery,
+#backlight,
+#pulseaudio,
+#network {
+    background-color: @bg;
+    border-bottom: 1px solid @base02;
+    padding: 0px 10px;
+}
+
+#battery {
+    border-left: 1px solid @base02;
+    border-radius: 0px 0px 0px 15px;
+    color: @green;
+}
+
+#backlight { color: @yellow; }
+#pulseaudio { color: @blue; }
+
+#network {
+    border-right: 1px solid @base02;
+    border-radius: 0px 0px 15px 0px;
+    color: @cyan;
+}
+
+#custom-power {
+    background-color: @bg;
+    color: @red;
+    border: 1px solid @base02;
+    border-top: none;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+#custom-power:hover {
+    background-color: @bg_highlight;
+    color: @orange;
+}
+
+@keyframes blink {
+    to { background-color: @red; color: @bg; }
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+    animation: blink 0.5s linear infinite alternate;
+}
+
+tooltip {
+    background: @bg;
+    border: 1px solid @base02;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @fg;
+    padding: 4px;
+}

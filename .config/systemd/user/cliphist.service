@@ -1,0 +1,12 @@
+[Unit]
+Description=Clipboard history service
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wl-paste --watch cliphist store
+Restart=always
+
+[Install]
+WantedBy=niri.service

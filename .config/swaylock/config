@@ -1,0 +1,47 @@
+### Solarized Osaka Theme Configuration ###
+
+# Background Image and Scaling
+image=~/.local/share/background/lockscreen.png
+scaling=fill
+color=001419
+
+# Indicator Geometry
+indicator-radius=100
+indicator-thickness=7
+
+# Basic Colors (Inside and Borders)
+inside-color=001419
+line-color=001419
+separator-color=001419
+
+# Default State
+# Ring: base03, Text: fg
+ring-color=002c38
+text-color=839395
+
+# Typing State
+# Key Highlight: blue, Backspace Highlight: orange
+key-hl-color=268bd3
+bs-hl-color=c94c16
+
+# Verifying State
+# Ring: cyan, Inside: bg
+ring-ver-color=29a298
+inside-ver-color=001419
+text-ver-color=ede7d3
+
+# Wrong Password State
+# Ring/Text: red
+ring-wrong-color=db302d
+inside-wrong-color=001419
+text-wrong-color=db302d
+
+# Clear Input State
+# Ring: orange
+ring-clear-color=c94c16
+inside-clear-color=001419
+
+# Miscellaneous Options
+ignore-empty-password
+indicator-idle-visible
+show-failed-attempts
