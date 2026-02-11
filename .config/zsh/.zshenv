@@ -17,6 +17,9 @@ export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=1000
 export SAVEHIST=1000
 
+## environment path
+export PATH="$PATH:$HOME/.local/bin"
+
 ## local
 # export LANG=C.UTF-8
 

@@ -131,7 +131,7 @@ binds {
     Mod+T       hotkey-overlay-title="Open a Terminal"      { spawn "foot"; }
     Mod+Space   hotkey-overlay-title="Application Launcher" { spawn "fuzzel"; }
     Mod+Alt+L   hotkey-overlay-title="Lock the screen"      { spawn "swaylock"; }
-    Mod+Alt+V   hotkey-overlay-title="Clipboard"            { spawn-sh "~/.local/bin/clip.sh"; }
+    Mod+Alt+V   hotkey-overlay-title="Clipboard"            { spawn-sh "~/.local/bin/clip"; }
 
     // --- Media & Hardware ---
     XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
