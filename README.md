@@ -1,48 +1,70 @@
-# 🌱 Dotfiles Configuration
+# dotfiles
 
-Welcome to my dotfiles – the setup that powers my daily development workflow, built primarily for Arch Linux with optional Ubuntu support.
+Personal configuration files.
 
-This repo contains configuration files, helper scripts, and UI tweaks for a consistent and efficient developer environment across systems.
+## Project Structure
 
-## 🖥️ Platform
+```text
+.
+├── .config
+│   ├── Code/User       # VS Code
+│   ├── alacritty       # Terminal 1
+│   ├── fontconfig      # System font configuration
+│   ├── foot            # Terminal 2 (Default)
+│   ├── fuzzel          # Wayland runner & menu
+│   ├── ghostty         # Terminal 3
+│   ├── git             # git config
+│   ├── mako            # Notification
+│   ├── niri            # Window manager
+│   ├── nvim            # Code editor 1
+│   ├── swaylock        # Screen locker
+│   ├── systemd/user    # Background services
+│   ├── tmux            # Terminal multiplexer
+│   ├── waybar          # System status bar
+│   ├── yazi            # Terminal file manager
+│   ├── zed             # Code editor 2
+│   └── zsh             # Shell
+├── .local
+│   ├── bin             # Custom utility scripts
+│   └── share           # Wallpapers and assets
+├── LICENSE
+├── README.md
+└── insdot.sh           # Automatic install script (testing)
+```
 
-- **OS**: macOS(daily driver), Arch Linux (sidekick)
-- **Machine**: Macbook Pro 2019 16 inches, ThinkPad X1 Carbon Gen 6
+## Requirement
 
-## 🧰 What's Inside?
+- Init System: `systemd`-based Linux distribution (RECOMMAND).
+- Environment: Wayland-compatible compositor (like niri).
+- Terminals: At least one of the included terminal emulators (foot, ghostty, or alacritty).
+- Font:
+   - Monospace: FiraCode Nerd Font
+   - Interface: Inter
+   - CJK Support: 文泉驛正黑體 (WenQuanYi Zen Hei)
+- Neovim: `fzf`, `ripgrep`, `bat`, `tree-sitter-cli`
 
-Here's a sneak peek into my curated setup:
 
-- **Git** – `.gitconfig`, `.gitignore` for clean commits and global sanity
-- **Zsh** –  with aliases, plugins, and productivity hacks
-- **Ghostty** – Snappy and styled terminal emulator with a custom config
-- **Alacritty** – Secondary terminal emulator with some basic config
-- **Neovim** – Lua-configured `init.lua`, plugin ecosystem tailored for speed
-- **Tmux** – Tiling terminal multiplexing wizardry 🧙‍♂️
-- **Yazi** – A fast and minimal file manager config
-- **Zed** – Keybindings and tweaks for a lightweight coding flow (testing)
-- **VS Code** – Custom keymaps and user settings
+## Installation
 
-## ⚙️ Installation Guide
+### Automatic
+The insdot.sh script is provided to automate the symlinking process.
 
-1. **Clone the repo**
-   ```sh
-   git clone --recursive https://github.com/hhschen/dotfiles.git <TARGET>
-   ```
+``` bash
+./insdot.sh
+```
 
-2. **Install dependencies**
+> [!CAUTION]
+> `insdot.sh` is currently in testing. Use it at your own risk. It is highly recommended to review the script before execution.
 
-3. **Link configuration**
+### Manual
 
-   Use `insdot.sh` (review it before running!). Whatever suits your flow.
+Alternatively, you can manually symlink specific directories:
 
-4. Done. You're all set. Now go write some awesome code. 🚀
+Example:
 
-## 🤝 Contributions
+```bash
+ln -s ~/dotfiles/.config/niri ~/.config/niri
+```
 
-Spotted something broken or have a cool improvement? Fork away, open a PR, or just shoot over suggestions. Sharing is caring!
-
-## ⚖️ License
-> WTFPL – Do what the f*** you want to.
->
-> Hack it, break it, improve it — it's yours now.
+## License
+WTFPL
