@@ -38,3 +38,4 @@ alias fonts='fc-cache -f -v'
 alias restart='systemctl reboot'
 alias shutdown='systemctl poweroff'
 alias :q='exit'
+alias mirror-update="sudo ~/.local/bin/mirror"

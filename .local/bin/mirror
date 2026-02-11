@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import json
+import urllib.request
+import time
+
+JSON_URL = "https://archlinux.org/mirrors/status/json/"
+
+# ====== Parameter ======
+RETRY = 3
+CHUNK_SIZE = 1024 * 64
+OUTPUT_FILE = "/etc/pacman.d/mirrorlist"
+TEST_FILE = "extra/os/x86_64/extra.db"
+PRE_SELECT = 6
+# ========================
+
+def fetch_json():
+    with urllib.request.urlopen(JSON_URL, timeout=10) as response:
+        return json.loads(response.read().decode())
+
+def filter_mirrors(data):
+    mirrors = []
+    for m in data["urls"]:
+        if (
+            m["country"] == "Taiwan"
+            and m["protocol"] == "https"
+            and m["active"] is True
+            and m["completion_pct"] == 1
+        ):
+            mirrors.append(m)
+    print(f"  符合條件的台灣鏡像數量: {len(mirrors)}")
+    return mirrors
+
+def test_speed(mirror):
+    speeds = []
+    url = mirror["url"] + TEST_FILE
+    mirror_delay = mirror.get("delay", None)
+    for attempt in range(RETRY):
+        try:
+            req = urllib.request.Request(url)
+            start = time.time()
+            with urllib.request.urlopen(req, timeout=30) as r:
+                total = 0
+                while True:
+                    chunk = r.read(CHUNK_SIZE)
+                    if not chunk:
+                        break
+                    total += len(chunk)
+            elapsed = time.time() - start
+            if elapsed > 0:
+                speeds.append(total / elapsed)
+            break
+        except Exception as e:
+            print(f"󰌙 {mirror['url']} 嘗試 {attempt+1} 失敗: {e}")
+            continue
+    avg_speed = sum(speeds) / len(speeds) if speeds else 0
+    return {"url": mirror["url"], "speed": avg_speed, "delay": mirror_delay}
+
+def rank_mirrors(results):
+    # 排序依實際下載速度
+    return sorted(results, key=lambda x: x["speed"], reverse=True)
+
+def write_output(ranked):
+    with open(OUTPUT_FILE, "w") as f:
+        for r in ranked:
+            f.write(f"Server = {r['url']}$repo/os/$arch\n")
+    print(f" mirrorlist 已寫入: {OUTPUT_FILE}")
+
+
+def main():
+    RED = "\033[31m"
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    if os.geteuid() != 0:
+        print(f"{RED}{BOLD}❌ 錯誤：權限不足！{RESET}")
+        print(f"{RED}此腳本需要修改 {OUTPUT_FILE}，請使用 'sudo' 執行。{RESET}")
+        print(f"建議用法: {BOLD}mirror-update{RESET}")
+        sys.exit(1)
+
+    data = fetch_json()
+    mirrors = filter_mirrors(data)
+
+    if len(mirrors) > PRE_SELECT:
+        mirrors.sort(key=lambda x: x.get("score") if x.get("score") is not None else 999)
+        mirrors = mirrors[:PRE_SELECT]
+
+    print(f"⚡ 開始單線程測速，共 {len(mirrors)} 個鏡像...")
+    results = []
+    for mirror in mirrors:
+        print(f"⏳ 測試 {mirror['url']} ...")
+        result = test_speed(mirror)
+        results.append(result)
+
+    results = [r for r in results if r and r["speed"] > 0]
+
+    ranked = rank_mirrors(results)
+    print("\n===== 排名結果 =====")
+    print(f"{'Rank':<4} {'Speed (MB/s)':>12} {'Delay(s)':>10} URL")
+    print("-" * 60)
+    for i, r in enumerate(ranked, 1):
+        speed_mb = r['speed'] / 1024 / 1024
+        delay = r['delay'] if r['delay'] is not None else '-'
+        print(f"#{i:<3} {speed_mb:>12.2f} {delay:>10} {r['url']}")
+
+    write_output(ranked)
+
+if __name__ == "__main__":
+    main()
