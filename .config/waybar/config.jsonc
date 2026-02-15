@@ -44,6 +44,7 @@
         "status-icons": {
             "paused": "󰏤"
         },
+        "tooltip-format": "{artist} - {title} ({status})",
     },
 
     "battery": {
@@ -60,7 +61,20 @@
 
     "clock": {
         "format": "󱑂 {:%H:%M}",
-        "tooltip-format": "<tt>{:%Y-%m-%d %H:%M}</tt>",
+        "format-alt": "{:%Y-%m-%d %a %H:%M}",
+        "tooltip-format": "<tt><big>{calendar}</big></tt>",
+        "locale": "C.UTF-8",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#268bd3'><b>{}</b></span>",
+                "days":     "<span color='#839395'><b>{}</b></span>",
+                "weekdays": "<span color='#b28500'><b>{}</b></span>",
+                "today":    "<span color='#db302d'><b><u>{}</u></b></span>"
+            }
+        },
         "actions": {
             "on-click-right": "mode",
             "on-scroll-up": "shift_up",

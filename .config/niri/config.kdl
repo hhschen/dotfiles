@@ -127,11 +127,12 @@ binds {
     // --- Applications ---
     Mod+B       hotkey-overlay-title="Open a Web Browser"   { spawn "chromium"; }
     Mod+E       hotkey-overlay-title="Open Nautilus"        { spawn "nautilus"; }
-    Mod+Shift+E hotkey-overlay-title="Open Yazi"            { spawn-sh "foot -e yazi"; }
     Mod+T       hotkey-overlay-title="Open a Terminal"      { spawn "foot"; }
+    Mod+V       hotkey-overlay-title="Clipboard"            { spawn-sh "~/.local/bin/clip"; }
+    Mod+X       hotkey-overlay-title="Power Menu"           { spawn-sh "~/.local/bin/powermenu"; }
     Mod+Space   hotkey-overlay-title="Application Launcher" { spawn "fuzzel"; }
     Mod+Alt+L   hotkey-overlay-title="Lock the screen"      { spawn "swaylock"; }
-    Mod+Alt+V   hotkey-overlay-title="Clipboard"            { spawn-sh "~/.local/bin/clip"; }
+    Mod+Shift+E hotkey-overlay-title="Open Yazi"            { spawn-sh "foot -e yazi"; }
 
     // --- Media & Hardware ---
     XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
