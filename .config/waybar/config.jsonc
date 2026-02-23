@@ -17,6 +17,7 @@
         "swap-icon-label": false,
         "rewrite": {
             "(.*) - Chromium": "󰖟 $1",
+            "(.*) — Mozilla Firefox": "󰈹 $1"
         }
     },
     "network": {
