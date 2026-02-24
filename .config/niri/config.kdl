@@ -125,7 +125,7 @@ window-rule {
 // -------------------------------------------------------------------------
 binds {
     // --- Applications ---
-    Mod+B       hotkey-overlay-title="Open a Web Browser"   { spawn "firefox"; }
+    Mod+B       hotkey-overlay-title="Open a Web Browser"   { spawn "chromium"; }
     Mod+E       hotkey-overlay-title="Open Nautilus"        { spawn-sh "env GTK_IM_MODULE=fcitx nautilus"; }
     Mod+T       hotkey-overlay-title="Open a Terminal"      { spawn "foot"; }
     Mod+V       hotkey-overlay-title="Clipboard"            { spawn-sh "~/.local/bin/clip"; }

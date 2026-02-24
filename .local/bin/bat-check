@@ -1,0 +1,108 @@
+#!/bin/bash
+
+# =================================================================
+# Battery Monitor Script (Event-driven via D-Bus)
+# This script monitors battery level and charging state in real-time.
+# =================================================================
+
+# --- Configuration ---
+LOW_THRESHOLD=15
+ICON_DIR="$HOME/.local/share/icons"
+LOW_FILE="/tmp/battery_low_flag"
+FULL_FILE="/tmp/battery_full_flag"
+
+
+# --- Function: Send Notification ---
+send_notify() {
+    local title=$1
+    local body=$2
+    local icon=$3
+    local urgency=$4
+    local timeout=$5
+    local icon_path="$ICON_DIR/$icon.png"
+
+    # Use default icon if specified icon path does not exist
+    [ ! -f "$icon_path" ] && icon_path=""
+
+    busctl --user call \
+        org.freedesktop.Notifications \
+        /org/freedesktop/Notifications \
+        org.freedesktop.Notifications Notify \
+        "susssasa{sv}i" \
+        "battery-alert" 0 "$icon_path" "$title" "$body" 0 1 "urgency" "y" "$urgency" "$timeout"
+}
+
+# --- Function: Core Battery Logic ---
+check_battery() {
+    # Fetch battery information via UPower
+    local info
+    BAT_PATH=$(upower -e | grep battery | head -n1)
+    info=$(upower -i "$BAT_PATH")
+
+    local percentage
+    percentage=$(awk '/percentage:/ {gsub("%",""); print $2}' <<< "$info")
+    local state
+    state=$(awk '/state:/ {print $2}' <<< "$info")
+
+    # Debug output for logs/troubleshooting
+    echo "[Debug] Battery State: $state, Capacity: $percentage%"
+
+    # 1. Logic: Discharging (Battery is being used)
+    if [[ "$state" == "discharging" ]]; then
+        # Clear the "Full" flag
+        [ -f "$FULL_FILE" ] && rm -f "$FULL_FILE"
+
+        if [[ "$percentage" -le "$LOW_THRESHOLD" ]]; then
+            if [ ! -f "$LOW_FILE" ]; then
+                echo "[Action] Battery low. Sending notification..."
+                send_notify "Low Battery: ${percentage}%" "Please connect charger." "bat-low" 2 0
+                touch "$LOW_FILE"
+            fi
+        fi
+
+    # 2. Logic: Full Charge
+    elif [[ "$state" == "full" || ("$state" == "fully-charged") ]]; then
+        # Clear Low Battery flag if it exists
+        [ -f "$LOW_FILE" ] && rm -f "$LOW_FILE"
+
+        # Send "Full" notification
+        if [ ! -f "$FULL_FILE" ]; then
+            echo "[Action] Battery full. Sending notification..."
+            send_notify "Battery Fully Charged" "You can unplug the charger." "bat-full" 0 3000
+            touch "$FULL_FILE"
+        fi
+
+    # 3. Logic: Charging (But not full yet)
+    elif [[ "$state" == *"charge"* ]]; then
+        # Clear the "Full" flag
+        [ -f "$FULL_FILE" ] && rm -f "$FULL_FILE"
+
+        if [ -f "$LOW_FILE" ]; then
+            echo "[Action] Power connected. Clearing low battery flag..."
+            send_notify "Power Connected" "Charging started (${percentage}%)." "bat-charging" 0 3000
+            rm -f "$LOW_FILE"
+        fi
+    fi
+}
+
+# =================================================================
+# Main Execution Loop
+# =================================================================
+echo "Initializing battery monitor..."
+
+rm -f "$LOW_FLAG" "$FULL_FLAG"
+
+# Initial check on startup
+check_battery
+
+# Listen for D-Bus signals from UPower
+gdbus monitor --system --dest org.freedesktop.UPower --object-path /org/freedesktop/UPower/devices/battery_BAT0 | \
+# Only triggers check_battery when Percentage or State changes.
+while read -r line; do
+    if [[ "$line" == *"PropertiesChanged"* ]]; then
+        # Filter signals to reduce overhead (only react to Percentage or State)
+        if [[ "$line" == *"Percentage"* || "$line" == *"State"* ]]; then
+            check_battery
+        fi
+    fi
+done
